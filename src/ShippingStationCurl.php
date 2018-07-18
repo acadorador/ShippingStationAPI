@@ -3,7 +3,6 @@
 namespace ShippingStation;
 
 use Exception;
-use Illuminate\Contracts\Config\Repository;
 
 class ShippingStationCurl
 {
@@ -189,5 +188,4 @@ class ShippingStationCurl
     {
         return $this->request(self::METHOD_DELETE, $url, $data);
     }
-
 }
