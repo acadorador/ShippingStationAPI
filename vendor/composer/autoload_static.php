@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c
+class ComposerStaticInit2fa653a4cd9e90cf20fcb8bce05ba3a8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -47,6 +47,8 @@ class ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'ShippingStation\\Test\\' => 21,
+            'ShippingStation\\' => 16,
         ),
         'R' => 
         array (
@@ -93,19 +95,14 @@ class ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c
         array (
             'Cron\\' => 5,
         ),
-        'A' => 
-        array (
-            'Adorador\\ShippingStation\\Test\\' => 30,
-            'Adorador\\ShippingStation\\' => 25,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -171,6 +168,14 @@ class ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'ShippingStation\\Test\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
+        'ShippingStation\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -230,14 +235,6 @@ class ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
-        ),
-        'Adorador\\ShippingStation\\Test\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests',
-        ),
-        'Adorador\\ShippingStation\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
@@ -821,11 +818,11 @@ class ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit20376834fa2ee08d44d20fb87bbea93c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2fa653a4cd9e90cf20fcb8bce05ba3a8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2fa653a4cd9e90cf20fcb8bce05ba3a8::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit2fa653a4cd9e90cf20fcb8bce05ba3a8::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit2fa653a4cd9e90cf20fcb8bce05ba3a8::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit2fa653a4cd9e90cf20fcb8bce05ba3a8::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -21,14 +21,15 @@ class ShippingStationServiceProvider extends ServiceProvider
      * return @void
      */
     public function register() {
-        $this->app->singleton(ShippingStation::class, function() {
-            return new ShippingStation();
+        $this->app->singleton(ShippingStation::class, function($app) {
+            $config = $app->config->get('shippingstation', []);
+            return new ShippingStation($config);
         });
 
-        $this->app->alias(SimplePackage::class,'shippingstation');
+        $this->app->alias(ShippingStation::class,'shippingstation');
 
         if($this->app->config->get('shippingstation') == null) {
-            $this->app->config->set('shippingstation', require __DIR__ . $this->configPath());
+            $this->app->config->set('shippingstation',$this->configPath());
         }
     }
 
