@@ -1,1 +1,1 @@
-This is a simple ShippingStation API Wrapper
+This is a simple Ship Station API Wrapper
