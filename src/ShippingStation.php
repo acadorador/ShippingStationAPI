@@ -16,7 +16,7 @@ class ShippingStation
      */
     public function __construct($config)
     {
-        $this->curl = new ShippingStationCurl($config['api_key'],$config['api_token']);
+        $this->curl = new ShippingStationCurl($config['api_key'],$config['api_secret']);
     }
 
     /**
@@ -25,7 +25,7 @@ class ShippingStation
      */
     public function registerAccount($data)
     {
-        $this->curl->post('accounts/registeraccount',$data);
+        return $this->curl->post('accounts/registeraccount',$data);
     }
 
     /**
@@ -33,7 +33,7 @@ class ShippingStation
      */
     public function listTags()
     {
-        $this->curl->get('accounts/listtags');
+        return $this->curl->get('accounts/listtags');
     }
 
     /**
@@ -43,7 +43,7 @@ class ShippingStation
     public function listCarriers($carrierCode = null)
     {
         $url = $carrierCode ? 'carriers/getcarrier?carrierCode='.$carrierCode : 'carriers/getcarrier';
-        $this->curl->get($url);
+        return $this->curl->get($url);
     }
 
     /**
@@ -52,7 +52,7 @@ class ShippingStation
      */
     public function addFunds($data)
     {
-        $this->curl->post('carrier/addfunds',$data);
+        return $this->curl->post('carrier/addfunds',$data);
     }
 
 
@@ -63,7 +63,7 @@ class ShippingStation
     public function listPackages($carrierCode = null)
     {
         $url = $carrierCode ? 'carriers/listpackages?carrierCode='.$carrierCode : 'carriers/listpackages';
-        $this->curl->get($url);
+        return $this->curl->get($url);
     }
 
     /**
@@ -73,7 +73,7 @@ class ShippingStation
     public function listServices($carrierCode = null)
     {
         $url = $carrierCode ? 'carriers/listservices?carrierCode='.$carrierCode : 'carriers/listservices';
-        $this->curl->get($url);
+        return $this->curl->get($url);
     }
 
     /**
@@ -83,7 +83,7 @@ class ShippingStation
     public function customer($customer = null)
     {
         $url = $customer ? "customers/{$customer}" : 'customers';
-        $this->curl->get($url);
+        return $this->curl->get($url);
     }
 
     /**
@@ -125,10 +125,10 @@ class ShippingStation
 
         if($new_params != '') {
             $new_params = rtrim($new_params,'&');
-            $this->curl->get("customers?{$new_params}");
+            return $this->curl->get("customers?{$new_params}");
         }
 
-        $this->curl->get('customers');
+        return $this->curl->get('customers');
     }
 
     /**
@@ -138,7 +138,7 @@ class ShippingStation
     public function fulfillments($params = [])
     {
         if(empty($params)) {
-            $this->curl->get('fulfillments');
+            return $this->curl->get('fulfillments');
         }
 
         $new_params = '';
@@ -184,7 +184,7 @@ class ShippingStation
             }
         }
         $new_params = rtrim($new_params,'&');
-        $this->curl->get("fulfillments?{$new_params}");
+        return $this->curl->get("fulfillments?{$new_params}");
     }
 
     /**
@@ -193,7 +193,7 @@ class ShippingStation
      */
     public function getOrder($id)
     {
-        $this->curl->get("orders/{$id}");
+        return $this->curl->get("orders/{$id}");
     }
 
     /**
@@ -202,7 +202,7 @@ class ShippingStation
      */
     public function deleteOrder($id)
     {
-        $this->curl->delete("orders/{$id}");
+        return $this->curl->delete("orders/{$id}");
     }
 
     /**
@@ -211,7 +211,7 @@ class ShippingStation
      */
     public function addTag($data)
     {
-        $this->curl->post('orders/addtag',$data);
+        return $this->curl->post('orders/addtag',$data);
     }
 
     /**
@@ -220,7 +220,7 @@ class ShippingStation
      */
     public function orderAssignUser($data)
     {
-        $this->curl->post('orders/assignuser',$data);
+        return $this->curl->post('orders/assignuser',$data);
     }
 
     /**
@@ -229,7 +229,7 @@ class ShippingStation
      */
     public function orderCreateLabel($data)
     {
-        $this->curl->post('orders/create/labelfororder',$data);
+        return $this->curl->post('orders/create/labelfororder',$data);
     }
 
     /**
@@ -239,7 +239,7 @@ class ShippingStation
      */
     public function orderUpdateCreate($data)
     {
-        $this->curl->post('orders/createorder',$data);
+        return $this->curl->post('orders/createorder',$data);
     }
 
     /**
@@ -250,7 +250,7 @@ class ShippingStation
      */
     public function multipleOrderUpdateCreate($data)
     {
-        $this->curl->post('orders/createorder',$data);
+        return $this->curl->post('orders/createorder',$data);
     }
 
     /**
@@ -259,7 +259,7 @@ class ShippingStation
      */
     public function orderHoldUntil($data)
     {
-        $this->curl->post('orders/holduntil',$data);
+        return $this->curl->post('orders/holduntil',$data);
     }
 
     /**
@@ -270,7 +270,7 @@ class ShippingStation
     {
         if(empty($params))
         {
-            $this->curl->get('orders');
+            return $this->curl->get('orders');
         }
 
         $new_params = '';
@@ -328,7 +328,7 @@ class ShippingStation
             }
         }
         $new_params = rtrim($new_params,'&');
-        $this->curl->get("orders?{$new_params}");
+        return $this->curl->get("orders?{$new_params}");
     }
 
     /**
@@ -354,7 +354,7 @@ class ShippingStation
             }
         }
         $new_params = rtrim($new_params,'&');
-        $this->curl->get("orders/listbytag?{$new_params}");
+        return $this->curl->get("orders/listbytag?{$new_params}");
     }
 
     /**
@@ -363,7 +363,7 @@ class ShippingStation
      */
     public function orderMarkAsShipped($data)
     {
-        $this->curl->post('orders/markasshipped',$data);
+        return $this->curl->post('orders/markasshipped',$data);
     }
 
     /**
@@ -372,7 +372,7 @@ class ShippingStation
      */
     public function orderRemoveTag($data)
     {
-        $this->curl->post('orders/removetag',$data);
+        return $this->curl->post('orders/removetag',$data);
     }
 
     /**
@@ -381,7 +381,7 @@ class ShippingStation
      */
     public function orderRestoreFromHold($data)
     {
-        $this->curl->post('orders/restorefromhold',$data);
+        return $this->curl->post('orders/restorefromhold',$data);
     }
 
     /**
@@ -390,7 +390,7 @@ class ShippingStation
      */
     public function orderUnassignUser($data)
     {
-        $this->curl->post('orders/unassignuser',$data);
+        return $this->curl->post('orders/unassignuser',$data);
     }
 
     /**
@@ -399,7 +399,7 @@ class ShippingStation
      */
     public function product($id)
     {
-        $this->curl->get("products/{$id}");
+        return $this->curl->get("products/{$id}");
     }
 
     /**
@@ -409,7 +409,7 @@ class ShippingStation
      */
     public function productUpdate($id, $data)
     {
-        $this->curl->put("products/{$id}",$data);
+        return $this->curl->put("products/{$id}",$data);
     }
 
     /**
@@ -419,7 +419,7 @@ class ShippingStation
     public function products($params = [])
     {
         if(empty($params)) {
-            $this->curl->get('products');
+            return $this->curl->get('products');
         }
 
         $new_params = '';
@@ -477,7 +477,7 @@ class ShippingStation
             }
         }
         $new_params = rtrim($new_params,'&');
-        $this->curl->get("products?{$new_params}");
+        return $this->curl->get("products?{$new_params}");
     }
 
     /**
@@ -487,7 +487,7 @@ class ShippingStation
     public function shipments($params = [])
     {
         if(empty($params)) {
-            $this->curl->get('shipments');
+            return $this->curl->get('shipments');
         }
 
         $new_params = '';
@@ -548,7 +548,7 @@ class ShippingStation
             }
         }
         $new_params = rtrim($new_params,'&');
-        $this->curl->get("shipments?{$new_params}");
+        return $this->curl->get("shipments?{$new_params}");
     }
 
     /**
@@ -557,7 +557,7 @@ class ShippingStation
      */
     public function shipmentRates($data)
     {
-        $this->curl->post('shipments/getrates',$data);
+        return $this->curl->post('shipments/getrates',$data);
     }
 
     /**
@@ -566,7 +566,7 @@ class ShippingStation
      */
     public function voidLabel($data)
     {
-        $this->curl->post('shipments/voidlabel',$data);
+        return $this->curl->post('shipments/voidlabel',$data);
     }
 
     /**
@@ -575,7 +575,7 @@ class ShippingStation
      */
     public function store($id)
     {
-        $this->curl->get("stores/{$id}");
+        return $this->curl->get("stores/{$id}");
     }
 
     /**
@@ -585,7 +585,7 @@ class ShippingStation
      */
     public function storeUpdate($id, $data)
     {
-        $this->curl->get("stores/{$id}",$data);
+        return $this->curl->get("stores/{$id}",$data);
     }
 
     /**
@@ -604,7 +604,7 @@ class ShippingStation
             }
         }
 
-        $this->curl->get("stores/getrefreshstatus?{$new_params}");
+        return $this->curl->get("stores/getrefreshstatus?{$new_params}");
     }
 
     /**
@@ -623,7 +623,7 @@ class ShippingStation
             }
         }
 
-        $this->curl->get("stores?{$new_params}");
+        return $this->curl->get("stores?{$new_params}");
     }
 
     /**
@@ -631,7 +631,7 @@ class ShippingStation
      */
     public function storesMarketPlaces()
     {
-        $this->curl->get('stores/marketplaces');
+        return $this->curl->get('stores/marketplaces');
     }
 
     /**
@@ -640,7 +640,7 @@ class ShippingStation
      */
     public function storeDeactivate($data)
     {
-        $this->curl->post('stores/deactivate',$data);
+        return $this->curl->post('stores/deactivate',$data);
     }
 
     /**
@@ -649,20 +649,20 @@ class ShippingStation
      */
     public function storeReactivate($data)
     {
-        $this->curl->post('stores/reactivate',$data);
+        return $this->curl->post('stores/reactivate',$data);
     }
 
     /**
      * Show list of users
      * @param $type
      */
-    public function users($type)
+    public function users($type = null)
     {
        if($type) {
-           $this->curl->get("users?showInactive={$type}");
+           return $this->curl->get("users?showInactive={$type}");
        }
 
-       $this->curl->get('users');
+        return $this->curl->get('users');
     }
 
     /**
@@ -671,7 +671,7 @@ class ShippingStation
      */
     public function warehouse($id)
     {
-        $this->curl->get("warehouses/{$id}");
+        return $this->curl->get("warehouses/{$id}");
     }
 
     /**
@@ -681,7 +681,7 @@ class ShippingStation
      */
     public function warehouseUpdate($id, $data)
     {
-        $this->curl->put("warehouses/{$id}",$data);
+        return $this->curl->put("warehouses/{$id}",$data);
     }
 
     /**
@@ -690,7 +690,7 @@ class ShippingStation
      */
     public function warehouseCreate($data)
     {
-        $this->curl->post('warehouses/createwarehouse',$data);
+        return $this->curl->post('warehouses/createwarehouse',$data);
     }
 
     /**
@@ -699,7 +699,7 @@ class ShippingStation
      */
     public function warehouses()
     {
-        $this->curl->get('warehouses');
+        return $this->curl->get('warehouses');
     }
 
     /**
@@ -707,7 +707,7 @@ class ShippingStation
      */
     public function webhooks()
     {
-        $this->curl->get('webhooks');
+        return $this->curl->get('webhooks');
     }
 
     /**
@@ -716,7 +716,7 @@ class ShippingStation
      */
     public function webhookSubscribe($data)
     {
-        $this->curl->post('webhooks/subscribe',$data);
+        return $this->curl->post('webhooks/subscribe',$data);
     }
 
     /**
@@ -725,6 +725,6 @@ class ShippingStation
      */
     public function webhookUnsubscribe($id)
     {
-        $this->curl->delete("webhooks/{$id}");
+        return $this->curl->delete("webhooks/{$id}");
     }
 }

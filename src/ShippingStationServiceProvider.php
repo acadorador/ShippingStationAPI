@@ -12,7 +12,7 @@ class ShippingStationServiceProvider extends ServiceProvider
      */
     protected function configPath()
     {
-        return __DIR__ . '/../config/shippingstation.php';
+        return __DIR__ . '/config/shippingstation.php';
     }
 
     /**
@@ -21,16 +21,16 @@ class ShippingStationServiceProvider extends ServiceProvider
      * return @void
      */
     public function register() {
+        if($this->app->config->get('shippingstation') === null) {
+            $this->app->config->set('shippingstation',require $this->configPath());
+        }
+
         $this->app->singleton(ShippingStation::class, function($app) {
             $config = $app->config->get('shippingstation', []);
             return new ShippingStation($config);
         });
 
         $this->app->alias(ShippingStation::class,'shippingstation');
-
-        if($this->app->config->get('shippingstation') == null) {
-            $this->app->config->set('shippingstation',$this->configPath());
-        }
     }
 
     /**

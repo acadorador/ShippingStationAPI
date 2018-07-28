@@ -1,9 +1,9 @@
 <?php
 
-namespace Adorador\ShippingStation\Test;
+namespace ShippingStation\Test;
 
-use Adorador\ShippingStation\ShippingStationFacade;
-use Adorador\ShippingStation\ShippingStationServiceProvider;
+use ShippingStation\ShippingStationFacade;
+use ShippingStation\ShippingStationServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase

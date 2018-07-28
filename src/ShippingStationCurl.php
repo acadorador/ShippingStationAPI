@@ -48,7 +48,7 @@ class ShippingStationCurl
      * End point URL
      * @var string
      */
-    private $endpoint = 'https://ss.shipstation.com/';
+    private $endpoint = 'https://ssapi.shipstation.com/';
 
     /**
      * Array containing headers from last performed request.
@@ -143,6 +143,7 @@ class ShippingStationCurl
         }
 
         $json = json_decode(substr($response, $header_size), false, 512, JSON_BIGINT_AS_STRING);
+
         return $json;
     }
 
