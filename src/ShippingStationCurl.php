@@ -21,6 +21,24 @@ class ShippingStationCurl
     protected $api_key;
 
     /**
+     * No. remaining requests
+     * @var
+     */
+    private $remainingRequests;
+
+    /**
+     * Reset time
+     * @var
+     */
+    private $resetTime;
+
+    /**
+     * Last request time
+     * @var
+     */
+    private $lastRequestTime;
+
+    /**
      * Http code
      * @var
      */
@@ -84,6 +102,11 @@ class ShippingStationCurl
         // create tokens
         $this->token = base64_encode(trim($this->api_key . ':' . $this->api_secret));
         $this->setHeader('Authorization','Basic '. $this->token);
+
+        // Requests cap handling //
+        $this->remainingRequests    = 40; // Current SS per-minute limit //
+        $this->resetTime            = 0;
+        $this->lastRequestTime      = null;
     }
 
     /**
@@ -154,6 +177,9 @@ class ShippingStationCurl
      */
     public function get($url)
     {
+        // add the api limiter
+        $this->enforceApiRateLimit();
+
         return $this->request(self::METHOD_GET, $url);
     }
 
@@ -165,6 +191,9 @@ class ShippingStationCurl
      */
     public function post($url, $data = [])
     {
+        // add the api limiter
+        $this->enforceApiRateLimit();
+
         return $this->request(self::METHOD_POST, $url, $data);
     }
 
@@ -176,6 +205,9 @@ class ShippingStationCurl
      */
     public function put($url, $data = [])
     {
+        // add the api limiter
+        $this->enforceApiRateLimit();
+
         return $this->request(self::METHOD_PUT, $url, $data);
     }
 
@@ -187,6 +219,36 @@ class ShippingStationCurl
      */
     public function delete($url, $data = [])
     {
+        // add the api limiter
+        $this->enforceApiRateLimit();
+
         return $this->request(self::METHOD_DELETE, $url, $data);
+    }
+
+    /**
+     * Enforces ShipStation API limiter
+     */
+    private function enforceApiRateLimit()
+    {
+
+        if($this->remainingRequests > 0)
+        {
+            return;
+        } else {
+            if(!empty($this->lastRequestTime))
+            {
+                $elapsedTime = (time() - $this->lastRequestTime);
+                if($elapsedTime > $this->resetTime)
+                {
+                    return;
+                } else {
+                    $waitingTime =  ($this->resetTime - $elapsedTime);
+                    sleep($waitingTime);
+                }
+            } else {
+                return;
+            }
+
+        }
     }
 }
