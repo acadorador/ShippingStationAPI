@@ -73,7 +73,8 @@ class ShippingStationCurl
      * @var array
      */
     private $headers = [
-        'Accept' => 'Accept: application/json'
+        //'Accept' => 'Accept: application/json',
+        'Content-Type' => 'Content-Type: application/json'
     ];
 
     /**
@@ -120,6 +121,7 @@ class ShippingStationCurl
      */
     private function request($method, $url, array $data = [], array $headers = [])
     {
+
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -129,8 +131,17 @@ class ShippingStationCurl
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_HEADER => 1,
             CURLINFO_HEADER_OUT => 1,
-            CURLOPT_VERBOSE => 1,
+            CURLOPT_VERBOSE => 1
         ]);
+
+        /**
+         * Added this to accommodate the ugly design of the Shipstation API
+         */
+        $new_data = '';
+        foreach($data as $key => $value) {
+           $new_data .=  " \"$key\" : $value " . ",";
+        }
+        $new_data = "{" . rtrim($new_data,",") . "}";
 
         switch ($method) {
             case 'PUT':
@@ -138,7 +149,7 @@ class ShippingStationCurl
             case 'POST':
                 curl_setopt_array($curl, [
                     CURLOPT_CUSTOMREQUEST => $method,
-                    CURLOPT_POSTFIELDS => $data,
+                    CURLOPT_POSTFIELDS =>  $new_data,
                 ]);
                 break;
             case 'DELETE':
