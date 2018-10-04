@@ -42,7 +42,7 @@ class ShippingStation
      */
     public function listCarriers($carrierCode = null)
     {
-        $url = $carrierCode ? 'carriers/getcarrier?carrierCode='.$carrierCode : 'carriers/getcarrier';
+        $url = $carrierCode ? 'carriers/getcarrier?carrierCode='.$carrierCode : 'carriers';
         return $this->curl->get($url);
     }
 
